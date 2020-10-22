@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#a22e3b</color>
+    <color name="colorPrimaryDark">#a22e3b</color>
+    <color name="colorAccent">#debb83</color>
+
+    <color name="brandRed">#a22e3b</color>
+    <color name="brandGold">#debb83</color>
+
+</resources>
