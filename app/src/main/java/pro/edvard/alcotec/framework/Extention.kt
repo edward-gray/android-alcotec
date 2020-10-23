@@ -1,4 +1,4 @@
-package pro.edvard.alcotec.framework.util
+package pro.edvard.alcotec.framework
 
 import android.content.Context
 import android.view.View

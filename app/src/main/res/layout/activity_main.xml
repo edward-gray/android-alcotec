@@ -24,6 +24,7 @@
         android:id="@+id/internet_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/brandRed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,13 +34,26 @@
         <ImageView
             android:id="@+id/activity_image_no_internet"
             android:layout_width="250dp"
-            android:layout_height="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:contentDescription="@string/no_network"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo"
-            android:contentDescription="@string/no_network" />
+            app:srcCompat="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/activity_text_no_network"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_network"
+            android:textSize="20sp"
+            android:textColor="@color/brandGold"
+            app:layout_constraintEnd_toEndOf="@+id/activity_image_no_internet"
+            app:layout_constraintStart_toStartOf="@+id/activity_image_no_internet"
+            app:layout_constraintTop_toBottomOf="@+id/activity_image_no_internet" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

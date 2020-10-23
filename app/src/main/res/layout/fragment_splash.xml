@@ -27,7 +27,7 @@
         android:layout_marginTop="8dp"
         android:alpha="0.8"
         android:text="@string/splash_edvard_grei"
-        android:textColor="@android:color/white"
+        android:textColor="@color/brandGold"
         android:textSize="18sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"

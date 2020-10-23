@@ -1,4 +1,4 @@
-package pro.edvard.alcotec.framework.presentation
+package pro.edvard.alcotec.framework.presentation.mainfragment
 
 import android.os.Bundle
 import android.view.View

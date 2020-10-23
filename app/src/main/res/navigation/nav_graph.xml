@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
-        android:name="pro.edvard.alcotec.framework.presentation.MainFragment"
+        android:name="pro.edvard.alcotec.framework.presentation.mainfragment.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
 </navigation>
