@@ -88,7 +88,7 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
             paint.isAntiAlias = true
             paint.shader = shader
 
-            canvas2.translate(38f, 13f)
+            canvas2.translate(35f, 12f)
 
             canvas2.drawCircle(
                 avatarBitmap.width / 2f, avatarBitmap.height / 2f,
