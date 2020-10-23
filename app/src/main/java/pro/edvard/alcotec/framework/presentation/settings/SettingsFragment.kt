@@ -1,5 +1,6 @@
 package pro.edvard.alcotec.framework.presentation.settings
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.Drawable
@@ -27,15 +28,13 @@ import pro.edvard.alcotec.framework.presentation.util.PermissionHandler
 @AndroidEntryPoint
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
-    /**
-     * 1. send location
-     * 2. get/upload image
-     * 3. Handle marker with image
-     * */
-
     companion object {
         const val REQUEST_KEY_DESTINATION = "REQUEST_KEY_DESTINATION"
         const val BUNDLE_KEY_DESTINATION = "BUNDLE_KEY_DESTINATION"
+
+        const val REQUEST_KEY_AVATAR_UPDATED = "REQUEST_KEY_AVATAR_UPDATED"
+        const val BUNDLE_KEY_AVATAR_UPDATED = "BUNDLE_KEY_AVATAR_UPDATED"
+
         const val REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 1
         const val DIRECTORY_NAME = "Alcotec"
         const val AVATAR_FILE_NAME = "avatar.jpeg"
@@ -61,14 +60,13 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         avatarButtonConfig()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun editTextConfig() {
-
         val lonEditText = settings_outlinedTextField_lon.editText!!
 
         lonEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 getLatLngFromUser()?.let { userLatLng ->
-                    println("APP_DEBUG: WAS CALLED")
                     provideDestinationToMap(userLatLng)
                 }
                 lonEditText.hideKeyboard()
@@ -109,10 +107,16 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     }
 
     private fun provideDestinationToMap(latLng: LatLng) {
-//            val destination = LatLng(50.461830, 30.452030)
         setFragmentResult(
             REQUEST_KEY_DESTINATION,
-            bundleOf(BUNDLE_KEY_DESTINATION to latLng)
+            bundleOf(BUNDLE_KEY_DESTINATION to latLng),
+        )
+    }
+
+    private fun informMapAvatarUpdated() {
+        setFragmentResult(
+            REQUEST_KEY_AVATAR_UPDATED,
+            bundleOf(BUNDLE_KEY_AVATAR_UPDATED to true),
         )
     }
 
@@ -120,21 +124,22 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
-    // AVATAR
-
     private val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
                 result.data?.data?.let { imageUri ->
                     fileHandler.saveImage(DIRECTORY_NAME, AVATAR_FILE_NAME, imageUri)
                     handleAvatar()
+                    informMapAvatarUpdated()
                 }
             }
         }
 
     private fun avatarButtonConfig() {
         settings_button_upload.setOnClickListener {
-            if (permissionHandler.isWriteExternalStorageGranted(REQUEST_CODE_WRITE_EXTERNAL_STORAGE)) {
+            val permission = permissionHandler.isWriteExternalStorageGranted(REQUEST_CODE_WRITE_EXTERNAL_STORAGE)
+            if (permission) {
+                permissionHandler.isWriteExternalStorageGranted(REQUEST_CODE_WRITE_EXTERNAL_STORAGE)
                 val intent = Intent(Intent.ACTION_GET_CONTENT)
                 intent.type = "image/*"
                 startForResult.launch(intent)

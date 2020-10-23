@@ -10,5 +10,7 @@
     <string name="settings_label_latitude">Latitude</string>
     <string name="settings_label_longitude">Longitude</string>
     <string name="icon_plus">+</string>
+    <string name="lat_test">50.461830</string>
+    <string name="lng_test">30.452030</string>
 
 </resources>
