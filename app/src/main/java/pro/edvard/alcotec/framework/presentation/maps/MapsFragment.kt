@@ -12,6 +12,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 import pro.edvard.alcotec.R
+import pro.edvard.alcotec.business.K
 import pro.edvard.alcotec.framework.presentation.settings.SettingsFragment
 
 @AndroidEntryPoint
@@ -23,7 +24,7 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
         mMap = googleMap
         val currentLocation = LatLng(-34.0, 151.0)
         mMap.addMarker(MarkerOptions().position(currentLocation).title("You"))
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 16f))
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, K.Map.ZOOM_IN_VALUE))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,7 +41,7 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
             println("APP_DEBUG: $result")
             result?.let { latLang ->
                 mMap.addMarker(MarkerOptions().position(latLang).title("Marker in Sydney"))
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLang, 16f))
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLang, K.Map.ZOOM_IN_VALUE))
             }
 
         }

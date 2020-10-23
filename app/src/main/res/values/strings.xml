@@ -9,5 +9,6 @@
     <string name="settings_button_go">Go</string>
     <string name="settings_label_latitude">Latitude</string>
     <string name="settings_label_longitude">Longitude</string>
+    <string name="icon_plus">+</string>
 
 </resources>

@@ -8,21 +8,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="2">
+        android:orientation="vertical">
 
         <FrameLayout
             android:id="@+id/main_fragment_settings"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             tools:layout="@layout/fragment_settings" />
 
         <FrameLayout
             android:id="@+id/main_fragment_maps"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             tools:layout="@layout/fragment_maps" />
 
 
