@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 import pro.edvard.alcotec.R
+import pro.edvard.alcotec.business.K
 
 @AndroidEntryPoint
 class SplashFragment : Fragment(R.layout.fragment_splash) {
@@ -39,7 +40,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             if (!viewIsBackFromBackground) {
                 navController.navigate(R.id.action_splashFragment_to_mainFragment)
             }
-        }, 2500)
+        }, K.Time.SPLASH_DELAY_TIME)
     }
 
 }
