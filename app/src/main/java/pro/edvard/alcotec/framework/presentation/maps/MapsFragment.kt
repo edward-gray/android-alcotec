@@ -27,6 +27,7 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
     private lateinit var mMap: GoogleMap
     private lateinit var fileHandler: FileHandler
     private lateinit var currentLocation: LatLng
+    private lateinit var markerBitMap: Bitmap
 
     private val callback = OnMapReadyCallback { googleMap ->
         mMap = googleMap
@@ -44,6 +45,7 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
 
     private fun configuration() {
         fileHandler = FileHandler(requireContext())
+        markerBitMap = getCustomBitmap()
         subscribers()
     }
 
@@ -60,6 +62,7 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
         setFragmentResultListener(SettingsFragment.REQUEST_KEY_AVATAR_UPDATED) { _, bundle ->
             val avatarIsUpdated = bundle.getBoolean(SettingsFragment.BUNDLE_KEY_AVATAR_UPDATED)
             if (avatarIsUpdated) {
+                markerBitMap = getCustomBitmap()
                 setMarkerAndZoom(currentLocation)
             }
         }
@@ -70,32 +73,30 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
         val conf = Bitmap.Config.ARGB_8888
         val avatarFile =
             fileHandler.getFile(SettingsFragment.DIRECTORY_NAME, SettingsFragment.AVATAR_FILE_NAME)
+
         val marker = BitmapFactory.decodeResource(resources, R.drawable.img_marker)
+        val scaledMarker = Bitmap.createScaledBitmap(marker, 140, 150, false)
 
         return Drawable.createFromPath(avatarFile.path)?.toBitmap(100, 100, conf)?.let { avatarBitmap ->
 
-            val bitmap = Bitmap.createBitmap(200, 200, conf)
-
-            val canvas1 = Canvas(bitmap)
+            val customBitmap = Bitmap.createBitmap(140, 150, conf)
             val paint = Paint()
-            paint.color = Color.BLACK
-            paint.textSize = 20F
 
-            canvas1.drawBitmap(marker, 0f, 0f, paint)
+            val canvas1 = Canvas(customBitmap)
+            canvas1.drawBitmap(scaledMarker, 0f, 0f, paint)
 
             val shader = BitmapShader(avatarBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
-            val canvas2 = Canvas(bitmap)
+            val canvas2 = Canvas(customBitmap)
             paint.isAntiAlias = true
             paint.shader = shader
 
-            canvas2.translate(35f, 12f)
-
+            canvas2.translate(20f, 10f)
             canvas2.drawCircle(
                 avatarBitmap.width / 2f, avatarBitmap.height / 2f,
                 50f, paint
             )
-            bitmap
-        } ?: marker
+            customBitmap
+        } ?: scaledMarker
     }
 
     private fun setMarkerAndZoom(latLang: LatLng) {
@@ -103,7 +104,7 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
         mMap.addMarker(
             MarkerOptions()
                 .position(latLang)
-                .icon(BitmapDescriptorFactory.fromBitmap(getCustomBitmap()))
+                .icon(BitmapDescriptorFactory.fromBitmap(markerBitMap))
                 .anchor(0.5f, 1f)
         )
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLang, K.Map.ZOOM_IN_VALUE))
